@@ -76,8 +76,7 @@ sorted ascending. A single stated hour such as "at 7 PM" yields [19].
 OUTPUT RULES:
 - Return exactly one entry per operator note, in note_index order starting
   at 0. Never merge, split, skip, or reorder notes.
-- Treat each note completely in isolation. Do NOT carry over time context (like "tomorrow" or "next week") from one note to the next. If notes overlap in time or contradict each other, still extract each note's directive exactly as written.
-- If a note asks for an action or constraint that is not explicitly supported by types 1-5 (such as selling power back to the grid, or changing tariffs), it MUST be classified as no_op. Do not attempt to approximate unsupported requests.
+- Treat each note independently. If notes overlap in time or contradict each other, still extract each note's directive exactly as written.
 - A note with two independent rules still yields ONE entry: choose the rule
   that constrains the energy schedule, preferring the explicitly quantified
   one.
