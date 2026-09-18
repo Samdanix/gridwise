@@ -72,6 +72,13 @@ class ScenarioSerializer(serializers.Serializer):
             )
         return value
 
+    def validate_operator_notes(self, value):
+        # Enforce that all operator notes are strictly strings, not just castable.
+        for note in self.initial_data.get("operator_notes", []):
+            if not isinstance(note, str):
+                raise serializers.ValidationError("each operator note must be a string")
+        return value
+
     def to_scenario(self) -> Scenario:
         data = self.validated_data
         hours = sorted(data["hours"], key=lambda entry: entry["hour"])
