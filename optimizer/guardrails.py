@@ -238,8 +238,9 @@ def build_constraints(scenario: Scenario, directives: List[Directive]) -> Constr
         if directive.directive_type == DIRECTIVE_SOLAR_REDUCTION:
             factor = float(adjustment["factor"])
             for hour in hours:
-                constraints.effective_solar[hour] = (
-                    scenario.hours[hour].solar_kwh * factor
+                new_solar = scenario.hours[hour].solar_kwh * factor
+                constraints.effective_solar[hour] = min(
+                    constraints.effective_solar[hour], new_solar
                 )
 
         elif directive.directive_type == DIRECTIVE_MIN_RESERVE:

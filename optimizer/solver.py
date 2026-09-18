@@ -165,7 +165,7 @@ def solve_lp(scenario: Scenario, constraints: ConstraintSet) -> Tuple[List[Dict]
         + CYCLING_EPSILON * pulp.lpSum(charge[h] + discharge[h] for h in range(HORIZON))
     )
 
-    status = problem.solve(pulp.PULP_CBC_CMD(msg=0))
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=5))
     status_name = pulp.LpStatus[status]
     if status_name != "Optimal":
         raise InfeasibleScenario("solver status %s" % status_name)

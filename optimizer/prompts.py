@@ -22,12 +22,15 @@ SUPPORTED DIRECTIVE TYPES (this list is closed -- never invent another):
 
 1. solar_reduction - usable solar generation is reduced during given hours.
    structured_adjustment: {"hours": [int...], "factor": number}
-   `factor` is the fraction of forecast solar that REMAINS usable.
-     "drops to 25% of forecast"        -> factor 0.25
-     "an 80% reduction"                -> factor 0.20
-     "roughly one fifth of normal"     -> factor 0.20
-     "about half the forecast output"  -> factor 0.50
-     "solar unavailable / offline"     -> factor 0.0
+    `factor` is the fraction of forecast solar that REMAINS usable.
+      "drops to 25% of forecast"        -> factor 0.25
+      "an 80% reduction"                -> factor 0.20
+      "reduce by 20%"                   -> factor 0.80
+      "cut by 85%"                      -> factor 0.15
+      "roughly one fifth of normal"     -> factor 0.20
+      "about half the forecast output"  -> factor 0.50
+      "halve"                           -> factor 0.50
+      "solar unavailable / offline"     -> factor 0.0
 
 2. minimum_battery_reserve - battery stored energy must stay at or above a
    level during given hours.
@@ -42,7 +45,7 @@ SUPPORTED DIRECTIVE TYPES (this list is closed -- never invent another):
    structured_adjustment: {"hours": [int...]}
 
 4. no_discharge_window - the battery cannot be discharged during given hours
-   (protection/relay testing, discharge inhibited).
+   (protection/relay testing, discharge inhibited, hold battery output, do not discharge).
    structured_adjustment: {"hours": [int...]}
 
 5. max_grid_window - grid import per hour is capped during given hours
@@ -54,7 +57,7 @@ SUPPORTED DIRECTIVE TYPES (this list is closed -- never invent another):
    Use this for administrative, scheduling, or social notices (menus,
    deadlines, bookings, notices, library hours, events), for anything about a
    different day/week/month, and for anything that does not map cleanly onto
-   types 1-5.
+   types 1-5 (e.g., unsupported requests, unsupported constraints, invalid dates).
 
 TIME WINDOW CONVENTION (critical, always applied):
 Windows are whole-hour intervals on a 0-23 clock. The START hour is INCLUDED
@@ -63,6 +66,7 @@ and the END hour is EXCLUDED.
   "from 2 AM until 5 AM"     -> [2, 3, 4]
   "between 11 AM and 2 PM"   -> [11, 12, 13]
   "from 6 PM until 10 PM"    -> [18, 19, 20, 21]
+  "from 18:00 to 21:00"      -> [18, 19, 20]
   "noon until 2 PM"          -> [12, 13]
   "from 10 AM until noon"    -> [10, 11]
   "during the 1-3 PM window" -> [13, 14]
@@ -72,6 +76,7 @@ sorted ascending. A single stated hour such as "at 7 PM" yields [19].
 OUTPUT RULES:
 - Return exactly one entry per operator note, in note_index order starting
   at 0. Never merge, split, skip, or reorder notes.
+- Treat each note independently. If notes overlap in time or contradict each other, still extract each note's directive exactly as written.
 - A note with two independent rules still yields ONE entry: choose the rule
   that constrains the energy schedule, preferring the explicitly quantified
   one.
