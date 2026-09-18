@@ -1,0 +1,5 @@
+Django>=4.2,<6.0
+djangorestframework>=3.14,<4.0
+requests>=2.31
+PuLP>=2.7
+gunicorn>=21.2
