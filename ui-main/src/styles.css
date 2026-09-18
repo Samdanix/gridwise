@@ -1,0 +1,139 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Archivo", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-grid: var(--grid);
+  --color-solar: var(--solar);
+  --color-battery: var(--battery);
+  --color-warning: var(--warning);
+  --color-panel: var(--panel);
+  --color-glass: var(--glass);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.135 0.027 256);
+  --foreground: oklch(0.955 0.018 250);
+  --card: oklch(0.18 0.035 255);
+  --card-foreground: oklch(0.955 0.018 250);
+  --popover: oklch(0.18 0.035 255);
+  --popover-foreground: oklch(0.955 0.018 250);
+  --primary: oklch(0.86 0.142 204);
+  --primary-foreground: oklch(0.135 0.027 256);
+  --secondary: oklch(0.24 0.045 255);
+  --secondary-foreground: oklch(0.955 0.018 250);
+  --muted: oklch(0.23 0.038 255);
+  --muted-foreground: oklch(0.7 0.052 254);
+  --accent: oklch(0.82 0.171 80);
+  --accent-foreground: oklch(0.135 0.027 256);
+  --destructive: oklch(0.66 0.229 20);
+  --border: oklch(0.3 0.045 255);
+  --input: oklch(0.26 0.04 255);
+  --ring: oklch(0.86 0.142 204);
+  --grid: oklch(0.86 0.142 204);
+  --solar: oklch(0.82 0.171 80);
+  --battery: oklch(0.81 0.17 156);
+  --warning: oklch(0.68 0.224 20);
+  --panel: oklch(0.17 0.033 255);
+  --glass: oklch(0.24 0.05 255);
+}
+
+* { border-color: var(--border); }
+html { background: var(--background); }
+body { margin: 0; background: var(--background); color: var(--foreground); }
+button, textarea { letter-spacing: 0; }
+button { cursor: pointer; }
+button:disabled { cursor: wait; opacity: .75; }
+
+.logo-mark { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid color-mix(in oklab, var(--grid) 45%, transparent); background: color-mix(in oklab, var(--grid) 12%, transparent); color: var(--grid); clip-path: polygon(18% 0,100% 0,100% 82%,82% 100%,0 100%,0 18%); }
+.action-button { display: inline-flex; align-items: center; gap: .5rem; border-radius: .35rem; background: var(--grid); color: var(--primary-foreground); padding: .55rem .8rem; font-family: var(--font-mono); font-size: .65rem; font-weight: 700; transition: filter .2s, transform .2s, box-shadow .2s; box-shadow: 0 0 24px color-mix(in oklab, var(--grid) 18%, transparent); }
+.action-button:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 0 34px color-mix(in oklab, var(--grid) 28%, transparent); }
+.scenario-button { display: flex; align-items: center; gap: .5rem; margin-top: .2rem; color: var(--foreground); font-family: var(--font-display); font-size: .85rem; font-weight: 700; }
+.eyebrow { font-family: var(--font-mono); font-size: .58rem; line-height: 1rem; color: var(--muted-foreground); }
+.kinetic-panel { position: relative; overflow: hidden; min-height: 550px; border: 1px solid var(--border); border-radius: var(--radius); background: radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--grid) 10%, transparent), transparent 33%), radial-gradient(circle at 90% 88%, color-mix(in oklab, var(--solar) 8%, transparent), transparent 30%), var(--panel); }
+.sweep-band { position: absolute; left: -20%; width: 145%; transform: rotate(-7deg); border-top: 1px solid color-mix(in oklab, var(--foreground) 7%, transparent); border-bottom: 1px solid color-mix(in oklab, var(--foreground) 7%, transparent); pointer-events: none; }
+.sweep-band-one { top: 4rem; height: 10rem; background: color-mix(in oklab, var(--glass) 44%, transparent); animation: sweep 12s linear infinite; }
+.sweep-band-two { top: 15rem; height: 7rem; background: color-mix(in oklab, var(--grid) 6%, transparent); animation: sweep 18s linear infinite reverse; }
+.chart-grid { background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 58%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--border) 45%, transparent) 1px, transparent 1px); background-size: 12.5% 100%, 100% 25%; }
+.chart-grid svg { display: block; width: 100%; height: clamp(14rem, 28vw, 20rem); }
+.chart-line { fill: none; stroke-width: 2.7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1100; animation: draw 1.8s cubic-bezier(.2,.8,.2,1) both; }
+.chart-line-grid { stroke: var(--grid); }
+.chart-line-solar { stroke: var(--solar); animation-delay: .18s; }
+.chart-line-battery { stroke: var(--battery); stroke-dasharray: 7 7; animation-delay: .35s; }
+.chart-area { animation: fade-in 1.2s ease both; }
+.flow-line { fill: none; stroke: var(--grid); stroke-width: 1; stroke-dasharray: 5 9; opacity: .35; animation: flow 1s linear infinite; }
+.flow-node { fill: var(--grid); animation: blink 1.8s ease-in-out infinite; }
+.is-running .chart-line { animation: draw .9s cubic-bezier(.2,.8,.2,1) both; }
+.metric { min-width: 0; border: 1px solid color-mix(in oklab, var(--border) 70%, transparent); border-radius: .35rem; background: color-mix(in oklab, var(--background) 64%, transparent); padding: .8rem; animation: rise .55s ease both; }
+.control-panel, .schedule-panel { border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
+.control-panel { padding: 1rem; }
+.pipeline-orb { display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border-radius: 50%; color: var(--grid); border: 1px solid color-mix(in oklab, var(--grid) 35%, transparent); background: color-mix(in oklab, var(--grid) 8%, transparent); }
+.pipeline-orb.is-running { animation: pulse-ring 1s ease-in-out infinite; }
+.stage { display: grid; justify-items: center; gap: .35rem; color: var(--muted-foreground); }
+.stage span { display: grid; width: 1.65rem; height: 1.65rem; place-items: center; border: 1px solid var(--border); border-radius: 50%; font-family: var(--font-mono); font-size: .55rem; transition: .25s ease; }
+.stage small { font-family: var(--font-mono); font-size: .46rem; }
+.stage-done { color: var(--battery); }
+.stage-done span { border-color: color-mix(in oklab, var(--battery) 55%, transparent); background: color-mix(in oklab, var(--battery) 10%, transparent); box-shadow: 0 0 16px color-mix(in oklab, var(--battery) 16%, transparent); }
+.section-rule { height: 1px; margin: 1.25rem 0; background: var(--border); }
+.battery-track { height: .45rem; overflow: hidden; border-radius: 99px; background: var(--background); }
+.battery-track span { display: block; width: 62%; height: 100%; border-radius: inherit; background: var(--battery); box-shadow: 0 0 18px color-mix(in oklab, var(--battery) 45%, transparent); animation: battery-fill 1.2s ease both; }
+.operator-note { width: 100%; min-height: 6rem; resize: vertical; border: 1px solid var(--border); border-radius: .35rem; background: color-mix(in oklab, var(--background) 70%, transparent); padding: .7rem; color: var(--foreground); font-size: .75rem; line-height: 1.5; outline: none; transition: border-color .2s, box-shadow .2s; }
+.operator-note:focus { border-color: color-mix(in oklab, var(--grid) 60%, transparent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--grid) 8%, transparent); }
+.directive { display: flex; align-items: flex-start; gap: .6rem; border-left: 1px solid var(--border); background: color-mix(in oklab, var(--glass) 30%, transparent); padding: .55rem .65rem; }
+.legend-dot { display: inline-block; width: .42rem; height: .42rem; flex: none; border-radius: 50%; margin-top: .2rem; box-shadow: 0 0 10px currentColor; }
+.tone-grid { background: var(--grid); color: var(--grid); }
+.tone-solar { background: var(--solar); color: var(--solar); }
+.tone-battery { background: var(--battery); color: var(--battery); }
+.tone-warn { background: var(--warning); color: var(--warning); }
+.tone-muted { background: var(--muted-foreground); color: var(--muted-foreground); }
+.tone-text-grid { color: var(--grid); }.tone-text-solar { color: var(--solar); }.tone-text-battery { color: var(--battery); }.tone-text-warn { color: var(--warning); }
+.icon-button { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--border); border-radius: .35rem; color: var(--muted-foreground); transition: color .2s, border-color .2s; }
+.icon-button:hover { color: var(--grid); border-color: var(--grid); }
+table th { padding: .65rem 1rem; text-align: left; color: var(--muted-foreground); font-size: .55rem; font-weight: 500; }
+table td { padding: .72rem 1rem; border-top: 1px solid color-mix(in oklab, var(--border) 65%, transparent); }
+table tbody tr { transition: background .2s; }
+table tbody tr:hover { background: color-mix(in oklab, var(--grid) 4%, transparent); }
+.table-state { display: inline-flex; min-width: 5.5rem; align-items: center; gap: .4rem; font-size: .6rem; font-weight: 600; }
+.table-state::before { content: ""; width: .38rem; height: .38rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 9px currentColor; }
+.table-state.tone-grid { background: transparent; color: var(--grid); }
+.table-state.tone-solar { background: transparent; color: var(--solar); }
+.table-state.tone-battery { background: transparent; color: var(--battery); }
+.table-state.tone-warn { background: transparent; color: var(--warning); }
+.table-state.tone-muted { background: transparent; color: var(--muted-foreground); }
+
+@keyframes draw { from { stroke-dashoffset: 1100; } to { stroke-dashoffset: 0; } }
+@keyframes flow { to { stroke-dashoffset: -42; } }
+@keyframes sweep { 0% { transform: translateX(-28%) rotate(-7deg); } 100% { transform: translateX(28%) rotate(-7deg); } }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .28; } }
+@keyframes battery-fill { from { width: 0; } to { width: 62%; } }
+@keyframes pulse-ring { 50% { box-shadow: 0 0 0 8px color-mix(in oklab, var(--grid) 7%, transparent); transform: scale(.96); } }
+.status-dot { width: .42rem; height: .42rem; border-radius: 50%; background: var(--battery); box-shadow: 0 0 10px var(--battery); animation: blink 1.6s ease-in-out infinite; }
+
+@media (max-width: 520px) { .kinetic-panel { min-height: auto; } .chart-grid svg { height: 13rem; } .metric { padding: .65rem; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
